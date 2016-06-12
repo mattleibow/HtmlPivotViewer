@@ -5,25 +5,25 @@ environment:
 install:
 - cmd: npm install
 build_script:
-- cmd: >-
-    node node_modules\typescript\bin\tsc
-    node node_modules\uglify-js\bin\uglifyjs --compress --mangle --output bin\HtmlPivotViewer.min.js -- bin\HtmlPivotViewer.js
+- ps: >-
+    node node_modules\typescript\bin\tsc  
+    node node_modules\uglify-js\bin\uglifyjs --compress --mangle --output bin\HtmlPivotViewer.min.js -- bin\HtmlPivotViewer.js  
 deploy_script:
 - ps: >-
-    git config --global credential.helper store
-    Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+    git config --global credential.helper store  
+    Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"  
 
-    git config --global user.email "mattleibow@live.com"
-    git config --global user.name "Matthew Leibowitz (CI)"
+    git config --global user.email "mattleibow@live.com"  
+    git config --global user.name "Matthew Leibowitz (CI)"  
 
-    git clone --single-branch -b gh-pages git@github.com:mattleibow/HtmlPivotViewer.git gh-pages
+    git clone --single-branch -b gh-pages git@github.com:mattleibow/HtmlPivotViewer.git gh-pages  
 
-    ni -type directory bin -f
-    cp bin\*.min.js gh-pages\bin\ -force
-    cp css\* gh-pages\css\ -force
-    cp index.html gh-pages\index.html -force
+    ni -type directory bin -f  
+    cp bin\*.min.js gh-pages\bin\ -force  
+    cp css\* gh-pages\css\ -force  
+    cp index.html gh-pages\index.html -force  
 
-    git add .
-    git commit -m "Build $env:APPVEYOR_BUILD_VERSION for commit $env:APPVEYOR_REPO_COMMIT by $env:APPVEYOR_REPO_COMMIT_AUTHOR"
-    git push origin gh-pages
+    git add .  
+    git commit -m "Build $env:APPVEYOR_BUILD_VERSION for commit $env:APPVEYOR_REPO_COMMIT by $env:APPVEYOR_REPO_COMMIT_AUTHOR"  
+    git push origin gh-pages  
     
