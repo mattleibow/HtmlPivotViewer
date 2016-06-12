@@ -145,12 +145,12 @@ namespace Pivot {
                 .data("filterInfo", bucket)
                 .appendTo(facetOption)
                 .click((e: JQueryEventObject) => this.onFacetValueNameClicked(e));
-            let count = $("<div>")
+            $("<div>")
                 .addClass("pivot_facetcount")
                 .text(bucket.count)
                 .data("filterInfo", bucket)
                 .appendTo(outerLabel);
-            let label = $("<div>")
+            $("<div>")
                 .addClass("pivot_facetlabel")
                 .text(bucket.label)
                 .data("filterInfo", bucket)

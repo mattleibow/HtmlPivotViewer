@@ -131,7 +131,7 @@ namespace Pivot {
                     for (let j = 0; j < facetsArr.length; ++j) {
                         let facetName = facetsArr[j];
                         let facetCategory = facets[facetName];
-                        let facetDT = $("<dt>").addClass("pivot").text(facetName).appendTo(detailsPaneFacets);
+                        $("<dt>").addClass("pivot").text(facetName).appendTo(detailsPaneFacets);
                         let facetDD = $("<dd>").addClass("pivot").appendTo(detailsPaneFacets);
                         let facetValues = itemFacets[facetName];
                         for (let i = 0; i < facetValues.length; i++) {
@@ -281,7 +281,7 @@ namespace Pivot {
             sortBox.change(() => {
                 viewer.sortBy(sortBox.val());
             });
-            let sortLabel = $("<div>").text("Sort:").addClass("pivot_sorttools pivot_subtle").appendTo(topBar);
+            $("<div>").text("Sort:").addClass("pivot_sorttools pivot_subtle").appendTo(topBar);
             // if the viewer's title is set, we'll put it in the top bar
             viewer.addListener("titleChange", (e: JQueryEventObject, text: string) => {
                 title.text(text);
@@ -415,7 +415,6 @@ namespace Pivot {
                 } else {
                     let index = -1;
                     for (var i = 0; i < filterData.values.length; i++) {
-                        var element = filterData.values[i];
                         if ((filterData.values[i] as StringFacetFilter).value == target.attr("name")) {
                             index = i;
                             break;
@@ -568,7 +567,7 @@ namespace Pivot {
                         facetValuesArray.sort(target.data("comparators")[target.data("currentComparator")]);
 
                         // finally, add the UI elements to select these facets
-                        let sortOrderLabel = $("<div>")
+                        $("<div>")
                             .text(target.data("comparatorNames")[target.data("currentComparator")])
                             .addClass("pivot_sortlabel")
                             .appendTo(nextSibling)
@@ -578,7 +577,7 @@ namespace Pivot {
                         facetValuesArray.forEach((value) => {
                             let stringValue = value.value;
                             let facetOption = $("<li>").appendTo(facetOptions);
-                            let checkBox = $("<input>")
+                            $("<input>")
                                 .attr("type", "checkbox")
                                 .attr("name", stringValue)
                                 .addClass("pivot pivot_facetcheckbox")
@@ -589,11 +588,11 @@ namespace Pivot {
                                 .addClass("pivot_outerlabel")
                                 .appendTo(facetOption)
                                 .click((e: JQueryEventObject) => onFacetValueNameClicked(e));
-                            let count = $("<div>")
+                            $("<div>")
                                 .addClass("pivot_facetcount")
                                 .text(value.count)
                                 .appendTo(outerLabel);
-                            let label = $("<div>")
+                            $("<div>")
                                 .addClass("pivot_facetlabel")
                                 .attr("title", stringValue)
                                 .text(stringValue)
@@ -601,6 +600,8 @@ namespace Pivot {
                         });
                         break;
                     case FacetTypes.Number:
+                        onNumberRangeSet = onNumberRangeSet;
+                        onNumberRangeUnset = onNumberRangeUnset;
                         //    var numberPicker = new PivotNumberPicker(nextSibling, items, openFacetName, currentFilter.values);
                         //    numberPicker.addListener("filter", onNumberRangeSet);
                         //    numberPicker.addListener("unfilter", onNumberRangeUnset);
