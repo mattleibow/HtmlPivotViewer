@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "module": "none",
+    "noImplicitAny": true,
+    "noEmitOnError": true,
+    "removeComments": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "target": "es5",
+    "listFiles": true,
+    "outDir": "bin",
+    "outFile": "./bin/HtmlPivotViewer.js",
+    "pretty": false,
+    "rootDir": "./src/",
+    "stripInternal": true,
+    "declaration": true
+  }
+}
