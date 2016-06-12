@@ -1,11 +1,73 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-    <title>HTML Pivot Viewer</title>
+    <title>Pivot Ajax</title>
+
+    <style>
+        html {
+            font-family: sans-serif;
+            font-size: 0.875em;
+        }
+
+        html,
+        body {
+            height: 100%;
+            position: relative;
+            margin: 0;
+        }
+
+        #theviewer {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border: 2px solid gray;
+        }
+    </style>
+
+    <!--The styles that make everything inside the Pivot view shiny-->
+    <link rel="stylesheet" type="text/css" href="../css/HtmlPivotView.css" />
 </head>
 
 <body>
-    <h1>HTML Pivot Viewer</h1>
+    <div id="theviewer"></div>
+
+    <!-- The built PivotViewer script -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" src="//npmcdn.com/draggabilly@2.1.1/dist/draggabilly.pkgd.min.js"></script>
+    <script type="text/javascript" src="/bin/HtmlPivotViewer.js"></script>
+    <script type="text/javascript">
+        if (typeof window.Pivot === "undefined") {
+            document.write('<script src="/bin/HtmlPivotViewer.min.js">\x3C/script>');
+        }
+    </script>
+    <script type="text/javascript">
+        var urlParams;
+        (window.onpopstate = function () {
+            var match,
+                pl = /\+/g,  // Regex for replacing addition symbol with a space
+                search = /([^&=]+)=?([^&]*)/g,
+                decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+                query = window.location.search.substring(1);
+
+            urlParams = {};
+            while (match = search.exec(query))
+                urlParams[decode(match[1])] = decode(match[2]);
+        })();
+        var url = "http://seajax.github.io/collections/conceptcars/conceptcars.cxml";
+        url = "/cxml/stuff.cxml";
+        url = "/cxml/venues.cxml";
+        if (urlParams["cxml"]) {
+            url = urlParams["cxml"];
+        }
+        $("#theviewer").each(function () {
+            this.pivotViewer = Pivot.PivotViewerFactory.init(this, true);
+            Pivot.CxmlLoader.load(this.pivotViewer, url);
+        });
+    </script>
+
 </body>
 
 </html>
