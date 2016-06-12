@@ -149,6 +149,7 @@ namespace Pivot {
     }
 
     export interface DateFacetFilter extends DateBucket, IFacetFilter {
+        inclusive: boolean;
         checkbox: JQuery;
     }
 
