@@ -17,7 +17,7 @@ deploy_script:
  - ps: git config --global user.email "mattleibow@live.com"
  - ps: git config --global user.name "Matthew Leibowitz (CI)"
 
- - ps: git clone --single-branch -b gh-pages https://github.com/mattleibow/HtmlPivotViewer.git gh-pages
+ - ps: git clone -b gh-pages https://github.com/mattleibow/HtmlPivotViewer.git gh-pages
 
  - ps: ni -type directory bin -f
  - ps: cp bin\*.min.js gh-pages\bin\ -force
