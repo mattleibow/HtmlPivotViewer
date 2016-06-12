@@ -17,11 +17,11 @@ deploy_script:
  - cmd: git config --global user.email "mattleibow@live.com"
  - cmd: git config --global user.name "Matthew Leibowitz (CI)"
 
- - cmd: git clone -b gh-pages https://github.com/mattleibow/HtmlPivotViewer.git gh-pages
+ - cmd: git clone -v -b gh-pages https://github.com/mattleibow/HtmlPivotViewer.git gh-pages
 
- - cmd: if not exist bin mkdir bin
- - cmd: if not exist css mkdir css
- - cmd: if not exist cxml mkdir cxml
+ - cmd: if not exist gh-pages\bin\ mkdir gh-pages\bin\
+ - cmd: if not exist gh-pages\css\ mkdir gh-pages\css\
+ - cmd: if not exist gh-pages\cxml\ mkdir gh-pages\cxml\
  - cmd: copy /Y bin\*.min.js gh-pages\bin\
  - cmd: copy /Y css\* gh-pages\css\
  - cmd: copy /Y cxml\* gh-pages\cxml\
