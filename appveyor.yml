@@ -13,7 +13,7 @@ build_script:
 
 deploy_script:
  - cmd: git config --global credential.helper store
- - cmd: echo https://%access_token%:x-oauth-basic@github.com > %USERPROFILE%\.git-credentials
+ - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
  - cmd: git config --global user.email "mattleibow@live.com"
  - cmd: git config --global user.name "Matthew Leibowitz (CI)"
 
