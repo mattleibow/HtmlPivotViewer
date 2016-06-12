@@ -33,5 +33,5 @@ deploy_script:
  - ps: git push origin gh-pages
 
 artifacts:
- - bin\HtmlPivotViewer.min.js
- - bin\HtmlPivotViewer.js
+ - path: bin\HtmlPivotViewer.min.js
+ - path: bin\HtmlPivotViewer.js
