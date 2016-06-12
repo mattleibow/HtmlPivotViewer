@@ -27,9 +27,9 @@ deploy_script:
  - cmd: copy /Y cxml\* gh-pages\cxml\
  - cmd: copy /Y index.html gh-pages\index.html
 
- - cmd: git --git-dir=gh-pages\.git --work-tree=gh-pages add .
- - cmd: git --git-dir=gh-pages\.git --work-tree=gh-pages commit -m "Build %APPVEYOR_BUILD_VERSION% for commit %APPVEYOR_REPO_COMMIT% by %APPVEYOR_REPO_COMMIT_AUTHOR%"
- - cmd: git --git-dir=gh-pages\.git --work-tree=gh-pages push origin gh-pages
+ - cmd: git -C gh-pages add .
+ - cmd: git -C gh-pages commit -m "Build %APPVEYOR_BUILD_VERSION% for commit %APPVEYOR_REPO_COMMIT% by %APPVEYOR_REPO_COMMIT_AUTHOR%"
+ - cmd: git -C gh-pages push origin gh-pages
 
 artifacts:
  - path: bin\HtmlPivotViewer.min.js
