@@ -5,29 +5,31 @@ environment:
     secure: uur3Y6W4UKOeKeIUFXCzs9l34yTk19NdrE/RojsviFtyj72W/2D3X/2SyB2QpY2d
 
 install:
- - ps: npm install
+ - cmd: npm install
 
 build_script:
- - ps: node node_modules\typescript\bin\tsc
- - ps: node node_modules\uglify-js\bin\uglifyjs --compress --mangle --output bin\HtmlPivotViewer.min.js -- bin\HtmlPivotViewer.js
+ - cmd: node node_modules\typescript\bin\tsc
+ - cmd: node node_modules\uglify-js\bin\uglifyjs --compress --mangle --output bin\HtmlPivotViewer.min.js -- bin\HtmlPivotViewer.js
 
 deploy_script:
- - ps: git config --global credential.helper store
- - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
- - ps: git config --global user.email "mattleibow@live.com"
- - ps: git config --global user.name "Matthew Leibowitz (CI)"
+ - cmd: git config --global credential.helper store
+ - cmd: echo https://%access_token%:x-oauth-basic@github.com > %USERPROFILE%\.git-credentials
+ - cmd: git config --global user.email "mattleibow@live.com"
+ - cmd: git config --global user.name "Matthew Leibowitz (CI)"
 
- - ps: git clone -b gh-pages https://github.com/mattleibow/HtmlPivotViewer.git gh-pages
+ - cmd: git clone -b gh-pages https://github.com/mattleibow/HtmlPivotViewer.git gh-pages
 
- - ps: ni -type directory bin -f
- - ps: cp bin\*.min.js gh-pages\bin\ -force
- - ps: cp css\* gh-pages\css\ -force
- - ps: cp cxml\* gh-pages\cxml\ -force
- - ps: cp index.html gh-pages\index.html -force
+ - cmd: if not exist bin mkdir bin
+ - cmd: if not exist css mkdir css
+ - cmd: if not exist cxml mkdir cxml
+ - cmd: copy /Y bin\*.min.js gh-pages\bin\
+ - cmd: copy /Y css\* gh-pages\css\
+ - cmd: copy /Y cxml\* gh-pages\cxml\
+ - cmd: copy /Y index.html gh-pages\index.html
 
- - ps: git add .
- - ps: git commit -m "Build $env:APPVEYOR_BUILD_VERSION for commit $env:APPVEYOR_REPO_COMMIT by $env:APPVEYOR_REPO_COMMIT_AUTHOR"
- - ps: git push origin gh-pages
+ - cmd: git add .
+ - cmd: git commit -m "Build %APPVEYOR_BUILD_VERSION% for commit %APPVEYOR_REPO_COMMIT% by %APPVEYOR_REPO_COMMIT_AUTHOR%"
+ - cmd: git push origin gh-pages
 
 artifacts:
  - path: bin\HtmlPivotViewer.min.js
