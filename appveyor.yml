@@ -12,22 +12,19 @@ build_script:
  - ps: node node_modules\uglify-js\bin\uglifyjs --compress --mangle --output bin\HtmlPivotViewer.min.js -- bin\HtmlPivotViewer.js
 
 deploy_script:
-# set up for git
  - ps: git config --global credential.helper store
  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
  - ps: git config --global user.email "mattleibow@live.com"
  - ps: git config --global user.name "Matthew Leibowitz (CI)"
 
-# download from git
  - ps: git clone --single-branch -b gh-pages git@github.com:mattleibow/HtmlPivotViewer.git gh-pages
 
-# copy files accross
  - ps: ni -type directory bin -f
  - ps: cp bin\*.min.js gh-pages\bin\ -force
  - ps: cp css\* gh-pages\css\ -force
+ - ps: cp cxml\* gh-pages\cxml\ -force
  - ps: cp index.html gh-pages\index.html -force
 
-# push to git
  - ps: git add .
  - ps: git commit -m "Build $env:APPVEYOR_BUILD_VERSION for commit $env:APPVEYOR_REPO_COMMIT by $env:APPVEYOR_REPO_COMMIT_AUTHOR"
  - ps: git push origin gh-pages

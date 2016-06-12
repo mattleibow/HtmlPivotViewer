@@ -44,9 +44,24 @@
         }
     </script>
     <script type="text/javascript">
+        var urlParams;
+        (window.onpopstate = function () {
+            var match,
+                pl = /\+/g,  // Regex for replacing addition symbol with a space
+                search = /([^&=]+)=?([^&]*)/g,
+                decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+                query = window.location.search.substring(1);
+
+            urlParams = {};
+            while (match = search.exec(query))
+                urlParams[decode(match[1])] = decode(match[2]);
+        })();
         var url = "http://seajax.github.io/collections/conceptcars/conceptcars.cxml";
-        var url = "/stuff.cxml";
-        var url = "/venues.cxml";
+        url = "/cxml/stuff.cxml";
+        url = "/cxml/venues.cxml";
+        if (urlParams["cxml"]) {
+            url = urlParams["cxml"];
+        }
         $("#theviewer").each(function () {
             this.pivotViewer = Pivot.PivotViewerFactory.init(this, true);
             Pivot.CxmlLoader.load(this.pivotViewer, url);
