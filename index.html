@@ -35,13 +35,18 @@
     <div id="theviewer"></div>
 
     <!-- The built PivotViewer script -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
-    <script type="text/javascript" src="https://npmcdn.com/draggabilly@2.1.1/dist/draggabilly.pkgd.min.js"></script>
-    <script type="text/javascript" src="bin/HtmlPivotViewer.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" src="//npmcdn.com/draggabilly@2.1.1/dist/draggabilly.pkgd.min.js"></script>
+    <script type="text/javascript" src="/bin/HtmlPivotViewer.js"></script>
+    <script type="text/javascript">
+        if (typeof window.Pivot === "undefined") {
+            document.write('<script src="/bin/HtmlPivotViewer.min.js">\x3C/script>');
+        }
+    </script>
     <script type="text/javascript">
         var url = "http://seajax.github.io/collections/conceptcars/conceptcars.cxml";
-        var url = "stuff.cxml";
-        var url = "venues.cxml";
+        var url = "/stuff.cxml";
+        var url = "/venues.cxml";
         $("#theviewer").each(function () {
             this.pivotViewer = Pivot.PivotViewerFactory.init(this, true);
             Pivot.CxmlLoader.load(this.pivotViewer, url);
