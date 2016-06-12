@@ -72,7 +72,7 @@ namespace Pivot {
                     .addClass("pivot")
                     .appendTo(optionsDiv)
                     .append($("<li>").addClass("pivot_horizbar"));
-                buckets.forEach(this.makeBucketUI);
+                buckets.forEach((bucket: DateFacetFilter) => this.makeBucketUI(bucket));
                 moreBuckets.forEach((bucket: DateFacetFilter) => this.makeBucketUI(bucket));
             }
         }

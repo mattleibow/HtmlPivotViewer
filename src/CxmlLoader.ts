@@ -87,10 +87,10 @@ namespace Pivot {
                         let xIsFilterVisible = xFacet.getAttributeNS(pivotNS, "IsFilterVisible");
                         let xIsMetaDataVisible = xFacet.getAttributeNS(pivotNS, "IsMetaDataVisible");
                         let xIsWordWheelVisible = xFacet.getAttributeNS(pivotNS, "IsWordWheelVisible");
-                        facet.isFilterVisible = xIsFilterVisible == null || xIsFilterVisible === "true";
-                        facet.isMetaDataVisible = xIsMetaDataVisible == null || xIsMetaDataVisible === "true";
+                        facet.isFilterVisible = xIsFilterVisible == null || xIsFilterVisible.trim() == "" || xIsFilterVisible === "true";
+                        facet.isMetaDataVisible = xIsMetaDataVisible == null || xIsMetaDataVisible.trim() == "" || xIsMetaDataVisible === "true";
                         facet.isWordWheelVisible =
-                            (xIsWordWheelVisible == null || xIsWordWheelVisible === "true") &&
+                            (xIsWordWheelVisible == null || xIsWordWheelVisible.trim() == "" || xIsWordWheelVisible === "true") &&
                             (facet.type === FacetTypes.String || facet.type === FacetTypes.LongString || facet.type === FacetTypes.Link);
                         facets[facet.name] = facet;
 
